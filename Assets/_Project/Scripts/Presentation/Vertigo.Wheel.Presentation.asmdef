@@ -1,0 +1,19 @@
+{
+    "name": "Vertigo.Wheel.Presentation",
+    "rootNamespace": "Vertigo.Wheel.Presentation",
+    "references": [
+        "Vertigo.Wheel.Core",
+        "Vertigo.Wheel.Data",
+        "DOTween.Modules",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
