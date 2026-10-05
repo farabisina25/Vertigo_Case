@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec048eb1f64748eeb273b9809dbf606a, type: 3}
+  m_Name: zone_progression
+  m_EditorClassIdentifier: 
+  _safeZoneInterval: 5
+  _superZoneInterval: 30
+  _tiers:
+  - _fromZone: 1
+    _normalWheel: {fileID: 11400000, guid: d86b218e09824b6a9a807c700b61e63a, type: 2}
+    _safeWheel: {fileID: 11400000, guid: 74ec087a97ec4f38be2f4e6ecb113319, type: 2}
+  - _fromZone: 11
+    _normalWheel: {fileID: 11400000, guid: 210303e0c6c5444ea2aacbb53401de09, type: 2}
+    _safeWheel: {fileID: 11400000, guid: 74ec087a97ec4f38be2f4e6ecb113319, type: 2}
+  - _fromZone: 21
+    _normalWheel: {fileID: 11400000, guid: 9f04f6470bf545a3a1339dd734c3ba26, type: 2}
+    _safeWheel: {fileID: 11400000, guid: 042ca637126c4c68b9dcbd6daabae325, type: 2}
+  _superWheel: {fileID: 11400000, guid: ff73960dd7bd4d1c8bec2a432cf73965, type: 2}
+  _rewardGrowthPerZone: 0.1

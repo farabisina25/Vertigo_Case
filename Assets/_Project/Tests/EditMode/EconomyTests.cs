@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Vertigo.Wheel.Core.Economy;
+using Vertigo.Wheel.Core.Rewards;
 
 namespace Vertigo.Wheel.Tests
 {
@@ -52,6 +53,21 @@ namespace Vertigo.Wheel.Tests
             Assert.IsFalse(revive.CanAfford);
             Assert.IsFalse(revive.TryRevive());
             Assert.AreEqual(99, wallet.Balance);
+        }
+
+        [Test]
+        public void ClaimHandler_CreditsOnlyMatchingCurrency()
+        {
+            var wallet = new InMemoryCurrencyWallet();
+            var handler = new CurrencyClaimHandler(wallet, "gold");
+
+            handler.Claim(new[]
+            {
+                new RewardStack("gold", 250),
+                new RewardStack("cash", 40)
+            });
+
+            Assert.AreEqual(250, wallet.Balance);
         }
     }
 }

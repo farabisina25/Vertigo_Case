@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23eccb1d433042d2ba2a9524ef1c0187, type: 3}
+  m_Name: wheel_bronze_tier3
+  m_EditorClassIdentifier: 
+  _baseSprite: {fileID: 21300000, guid: 249c3aa595e223c4494552bdc2635c44, type: 3}
+  _indicatorSprite: {fileID: 21300000, guid: e05cbfee2ebce394ead0db1deafb118c, type: 3}
+  _bombIcon: {fileID: 21300000, guid: bb9e5548897bce845bf497910d8fcdf9, type: 3}
+  _title: BRONZE SPIN
+  _subtitle: Rewards grow every zone
+  _slices:
+  - _isBomb: 1
+    _reward: {fileID: 0}
+    _baseAmount: 1
+    _weight: 1
+    _scalesWithZone: 0
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: f955d1054a6649b5a1df2497c2c1f35d, type: 2}
+    _baseAmount: 200
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 42f7c02617a44bae997015e347ef27f8, type: 2}
+    _baseAmount: 20
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 028d6ec3e10c4f658919d46b898768df, type: 2}
+    _baseAmount: 1
+    _weight: 1
+    _scalesWithZone: 0
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 8da35cb0cf3447efbc16aff2d826aedd, type: 2}
+    _baseAmount: 100
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: a92230efc81e4b698ac16a505305fc09, type: 2}
+    _baseAmount: 20
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 0b239bb88c6c4781af69318e16c806e2, type: 2}
+    _baseAmount: 2
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: c29a6cc05c494d19a247a89122301d49, type: 2}
+    _baseAmount: 1
+    _weight: 0.5
+    _scalesWithZone: 0

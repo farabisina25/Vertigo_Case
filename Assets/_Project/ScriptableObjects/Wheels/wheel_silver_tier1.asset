@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23eccb1d433042d2ba2a9524ef1c0187, type: 3}
+  m_Name: wheel_silver_tier1
+  m_EditorClassIdentifier: 
+  _baseSprite: {fileID: 21300000, guid: 9a517076a09b0c040bb8ab51c5c0a073, type: 3}
+  _indicatorSprite: {fileID: 21300000, guid: 4cbdc93014a340f46b613d162c2fc244, type: 3}
+  _bombIcon: {fileID: 21300000, guid: bb9e5548897bce845bf497910d8fcdf9, type: 3}
+  _title: SILVER SPIN
+  _subtitle: Safe zone, no bomb
+  _slices:
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: f955d1054a6649b5a1df2497c2c1f35d, type: 2}
+    _baseAmount: 300
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 790ae09603ef4e8c9adacc05563fe7c0, type: 2}
+    _baseAmount: 25
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 20591cca587149c99edbcfbb0460024c, type: 2}
+    _baseAmount: 1
+    _weight: 1
+    _scalesWithZone: 0
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 308b3e0774054e7d81669e2a744f1b02, type: 2}
+    _baseAmount: 1
+    _weight: 0.5
+    _scalesWithZone: 0
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 8da35cb0cf3447efbc16aff2d826aedd, type: 2}
+    _baseAmount: 150
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: 8ebb141256c34b8ca5d69bbf94127b9d, type: 2}
+    _baseAmount: 25
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: b7e4488429ad43a1aa09583805202a44, type: 2}
+    _baseAmount: 2
+    _weight: 1
+    _scalesWithZone: 1
+  - _isBomb: 0
+    _reward: {fileID: 11400000, guid: bc9128d2581945609c5837e9421b0188, type: 2}
+    _baseAmount: 1
+    _weight: 0.5
+    _scalesWithZone: 0
