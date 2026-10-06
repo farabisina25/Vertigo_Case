@@ -37,8 +37,26 @@ SpriteAtlas:
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4cbdc93014a340f46b613d162c2fc244, type: 3}
+  - {fileID: 21300000, guid: 97ca5855b26af05429fdcffdd4d8c11b, type: 3}
+  - {fileID: 21300000, guid: 4701f595e8a8bdd41a953e062f40e0a3, type: 3}
+  - {fileID: 21300000, guid: 249c3aa595e223c4494552bdc2635c44, type: 3}
+  - {fileID: 21300000, guid: 9a517076a09b0c040bb8ab51c5c0a073, type: 3}
+  - {fileID: 21300000, guid: d7b8ece7fa660f348862e0ae2928cac6, type: 3}
+  - {fileID: 21300000, guid: cb81136c94ff9194693a43da88c1281c, type: 3}
+  - {fileID: 21300000, guid: e05cbfee2ebce394ead0db1deafb118c, type: 3}
+  - {fileID: 21300000, guid: b09e8f8fb8991c946b810a3c666a2633, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ui_spin_silver_indicator
+  - ui_vfx_offer_shine
+  - ui_spin_golden_indicator
+  - ui_spin_bronze_base
+  - ui_spin_silver_base
+  - ui_spin_generic_button
+  - star_glow_alpha
+  - ui_spin_bronze_indicator
+  - ui_spin_golden_base
   m_RenderDataMap: {}
   m_Tag: atlas_ui_wheel
   m_IsVariant: 0

@@ -112,3 +112,6 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Edit mode layout captures (Vertigo > Capture UI Screenshots)
+/Screenshots/edit_*.png

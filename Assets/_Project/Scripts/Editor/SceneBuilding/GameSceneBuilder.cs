@@ -70,6 +70,9 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
                 return;
             }
 
+            // NewScene unloads unused assets, so they are loaded only after the scene exists.
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
             GameSceneAssets assets;
             try
             {
@@ -81,15 +84,13 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
                 return;
             }
 
-            Scene scene = Build(assets);
+            Build(scene, assets);
             Debug.Log($"[GameSceneBuilder] Built {scene.path}.");
             UiHierarchyValidator.ValidateOpenScenes();
         }
 
-        public static Scene Build(GameSceneAssets assets)
+        public static void Build(Scene scene, GameSceneAssets assets)
         {
-            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-
             CreateCamera();
             CreateEventSystem();
             Transform canvas = CreateCanvas().transform;
@@ -124,7 +125,6 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             Directory.CreateDirectory(Path.GetDirectoryName(ScenePath) ?? "Assets");
             EditorSceneManager.SaveScene(scene, ScenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath, true) };
-            return scene;
         }
 
         private static void CreateCamera()

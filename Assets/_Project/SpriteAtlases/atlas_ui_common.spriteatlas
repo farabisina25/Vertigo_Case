@@ -37,8 +37,34 @@ SpriteAtlas:
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 51ea61606fb41984898056b91b315e38, type: 3}
+  - {fileID: 21300000, guid: eee45e70d11cb1544a2aa88713319269, type: 3}
+  - {fileID: 21300000, guid: 453d6ef0d14a5e84d87d5a8d67373ea9, type: 3}
+  - {fileID: 21300000, guid: 1f118b122d5320943a26d688a387e1fd, type: 3}
+  - {fileID: 21300000, guid: 55260723944db314c8a4cb5f39c41694, type: 3}
+  - {fileID: 21300000, guid: 10131574fcc79124e8a43dbe51a02246, type: 3}
+  - {fileID: 21300000, guid: c5479015cb0f388459b1fb9eb96fbac1, type: 3}
+  - {fileID: 21300000, guid: e8aed666775eb1a4a86b4d2688406046, type: 3}
+  - {fileID: 21300000, guid: 400f59e751015ed42bb4b466c9972cdb, type: 3}
+  - {fileID: 21300000, guid: bb9e5548897bce845bf497910d8fcdf9, type: 3}
+  - {fileID: 21300000, guid: b1422b484f366c74d9e5863a19131e46, type: 3}
+  - {fileID: 21300000, guid: 77543f2a329e4cb41851d0bd7e6ef220, type: 3}
+  - {fileID: 21300000, guid: db0b078f392fcf444a46fc3273321592, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ui_card_panel_zone_bg
+  - ui_card_panel_zone_current_white
+  - ui_card_panel_zone_current
+  - ui_card_panel_zone_coming
+  - ui_card_zone_map_frame
+  - UI_button_grey_standard
+  - ui_card_frame_gardient
+  - ui_card_panel_zone_super
+  - ui_card_panel_zone_white
+  - ui_card_icon_death
+  - UI_button_orange_standard
+  - ui_card_frame_12px_neutral
+  - ui_card_frame_4px_zone
   m_RenderDataMap: {}
   m_Tag: atlas_ui_common
   m_IsVariant: 0
