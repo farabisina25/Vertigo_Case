@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Vertigo.Wheel.Editor.SceneBuilding
@@ -25,6 +26,12 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
         public SerializedFieldWriter Set(string fieldName, int value)
         {
             GetProperty(fieldName).intValue = value;
+            return this;
+        }
+
+        public SerializedFieldWriter Set(string fieldName, Vector2 value)
+        {
+            GetProperty(fieldName).vector2Value = value;
             return this;
         }
 

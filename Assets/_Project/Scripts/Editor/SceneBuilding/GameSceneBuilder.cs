@@ -52,6 +52,7 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
         private const float SliceHoleRadius = WheelSize * 0.294f;
         private const float SliceIconRadius = SliceHoleRadius + 14f;
         private const float SliceIconSize = 56f;
+        private const float SliceBombIconSize = 84f;
         private const float SliceAmountRadius = SliceHoleRadius - 30f;
         private const float SliceAmountFontSize = 22f;
         private static readonly Vector2 SliceAmountSize = new Vector2(84f, 26f);
@@ -483,7 +484,12 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             var view = slice.gameObject.AddComponent<WheelSliceView>();
             using (var writer = new SerializedFieldWriter(view))
             {
-                writer.Set("_iconValue", icon).Set("_amountValue", amount);
+                writer.Set("_iconValue", icon)
+                    .Set("_amountValue", amount)
+                    .Set("_rewardIconPosition", new Vector2(0f, SliceIconRadius))
+                    .Set("_rewardIconSize", Vector2.one * SliceIconSize)
+                    .Set("_bombIconPosition", new Vector2(0f, SliceHoleRadius))
+                    .Set("_bombIconSize", Vector2.one * SliceBombIconSize);
             }
 
             return view;
