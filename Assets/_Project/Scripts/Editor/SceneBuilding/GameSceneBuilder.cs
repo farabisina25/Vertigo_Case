@@ -48,8 +48,13 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
 
         private const float WheelSize = 600f;
         private const float WheelCenterY = -90f;
-        private const float SliceIconRadius = WheelSize * 0.3f;
-        private const float SliceAmountRadius = SliceIconRadius - 46f;
+        // The base art has 8 holes centred at ~29.4% of its width, each ~17.5% wide; icon and amount stay inside a hole.
+        private const float SliceHoleRadius = WheelSize * 0.294f;
+        private const float SliceIconRadius = SliceHoleRadius + 14f;
+        private const float SliceIconSize = 56f;
+        private const float SliceAmountRadius = SliceHoleRadius - 30f;
+        private const float SliceAmountFontSize = 22f;
+        private static readonly Vector2 SliceAmountSize = new Vector2(84f, 26f);
 
         private const float RewardEntryHeight = 92f;
 
@@ -443,7 +448,6 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
 
             Button spinButton = UiFactory.CreateButton("ui_button_spin", anim, assets.SpinButton);
             UiFactory.PlaceCentered((RectTransform)spinButton.transform, Vector2.zero, new Vector2(150f, 150f));
-            AddButtonLabel(spinButton, "ui_text_spin", "SPIN", assets);
 
             var view = wheel.gameObject.AddComponent<WheelView>();
             using (var writer = new SerializedFieldWriter(view))
@@ -470,11 +474,11 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             slice.localRotation = Quaternion.Euler(0f, 0f, WheelAngles.GetSliceRestAngle(index, count));
 
             Image icon = UiFactory.CreateImage("ui_image_wheel_slice_icon_value", slice, null);
-            UiFactory.PlaceCentered(icon.rectTransform, new Vector2(0f, SliceIconRadius), new Vector2(84f, 84f));
+            UiFactory.PlaceCentered(icon.rectTransform, new Vector2(0f, SliceIconRadius), Vector2.one * SliceIconSize);
 
-            TextMeshProUGUI amount = UiFactory.CreateText("ui_text_wheel_slice_amount_value", slice, string.Empty, 28f);
+            TextMeshProUGUI amount = UiFactory.CreateText("ui_text_wheel_slice_amount_value", slice, string.Empty, SliceAmountFontSize);
             amount.fontSharedMaterial = assets.OutlinedFont;
-            UiFactory.PlaceCentered(amount.rectTransform, new Vector2(0f, SliceAmountRadius), new Vector2(140f, 34f));
+            UiFactory.PlaceCentered(amount.rectTransform, new Vector2(0f, SliceAmountRadius), SliceAmountSize);
 
             var view = slice.gameObject.AddComponent<WheelSliceView>();
             using (var writer = new SerializedFieldWriter(view))
