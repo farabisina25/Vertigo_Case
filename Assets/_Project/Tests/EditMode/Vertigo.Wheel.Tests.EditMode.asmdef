@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "Vertigo.Wheel.Core",
         "Vertigo.Wheel.Data",
-        "Vertigo.Wheel.Presentation"
+        "Vertigo.Wheel.Presentation",
+        "Vertigo.Wheel.Controllers"
     ],
     "includePlatforms": [
         "Editor"

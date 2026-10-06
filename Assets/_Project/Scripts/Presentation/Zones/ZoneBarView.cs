@@ -8,7 +8,7 @@ namespace Vertigo.Wheel.Presentation.Zones
     /// <summary>
     /// Recycles a fixed set of cells around the current zone and slides them when the zone advances.
     /// </summary>
-    public sealed class ZoneBarView : MonoBehaviour
+    public sealed class ZoneBarView : MonoBehaviour, IZoneBarView
     {
         [SerializeField] private RectTransform _scrollContent;
         [SerializeField] private ZoneCellView[] _cells = Array.Empty<ZoneCellView>();

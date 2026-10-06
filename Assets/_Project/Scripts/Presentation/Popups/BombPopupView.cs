@@ -6,7 +6,7 @@ using Vertigo.Wheel.Presentation.Common;
 
 namespace Vertigo.Wheel.Presentation.Popups
 {
-    public sealed class BombPopupView : PopupView
+    public sealed class BombPopupView : PopupView, IBombPopupView
     {
         private const string GiveUpButtonName = "ui_button_give_up";
         private const string ReviveButtonName = "ui_button_revive";

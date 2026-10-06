@@ -6,7 +6,7 @@ namespace Vertigo.Wheel.Presentation.Rewards
     /// <summary>
     /// Pools <see cref="RewardEntryView"/> instances cloned from an inactive template child.
     /// </summary>
-    public sealed class RewardListView : MonoBehaviour
+    public sealed class RewardListView : MonoBehaviour, IRewardListView
     {
         [SerializeField] private RectTransform _container;
         [SerializeField] private RewardEntryView _entryTemplate;
@@ -25,16 +25,14 @@ namespace Vertigo.Wheel.Presentation.Rewards
         }
 
         /// <summary>Adds a new entry or animates the existing one to the new total.</summary>
-        public RewardEntryView Upsert(RewardEntryData entry, bool animate)
+        public void Upsert(RewardEntryData entry, bool animate)
         {
             RewardEntryView view = Find(entry.RewardId);
             if (view == null)
             {
-                view = AddEntry(entry);
-                return view;
+                AddEntry(entry);
             }
-
-            if (animate)
+            else if (animate)
             {
                 view.AnimateAmount(entry.Amount);
             }
@@ -42,8 +40,6 @@ namespace Vertigo.Wheel.Presentation.Rewards
             {
                 view.Render(entry);
             }
-
-            return view;
         }
 
         public RewardEntryView Find(string rewardId)

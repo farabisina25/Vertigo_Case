@@ -11,7 +11,7 @@ namespace Vertigo.Wheel.Presentation.Popups
     /// <summary>
     /// Shown when a run ends, either by collecting the rewards or by giving up after a bomb.
     /// </summary>
-    public sealed class RunSummaryPopupView : PopupView
+    public sealed class RunSummaryPopupView : PopupView, IRunSummaryPopupView
     {
         private const string PlayAgainButtonName = "ui_button_play_again";
 

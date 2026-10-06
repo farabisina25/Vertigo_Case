@@ -9,7 +9,7 @@ namespace Vertigo.Wheel.Presentation.Hud
     /// <summary>
     /// "Collect rewards" button, only usable on safe and super zones while the wheel is idle.
     /// </summary>
-    public sealed class LeaveButtonView : MonoBehaviour
+    public sealed class LeaveButtonView : MonoBehaviour, ILeaveButtonView
     {
         private const string LeaveButtonName = "ui_button_leave";
 

@@ -5,7 +5,7 @@ using Vertigo.Wheel.Presentation.Common;
 
 namespace Vertigo.Wheel.Presentation.Hud
 {
-    public sealed class WalletView : MonoBehaviour
+    public sealed class WalletView : MonoBehaviour, IWalletView
     {
         [SerializeField] private Image _currencyIconValue;
         [SerializeField] private TMP_Text _balanceValue;

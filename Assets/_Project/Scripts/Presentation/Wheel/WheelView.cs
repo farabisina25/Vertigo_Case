@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace Vertigo.Wheel.Presentation.Wheel
 {
-    public sealed class WheelView : MonoBehaviour
+    public sealed class WheelView : MonoBehaviour, IWheelView
     {
         private const string SpinButtonName = "ui_button_spin";
 
