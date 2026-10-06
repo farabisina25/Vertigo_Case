@@ -32,9 +32,17 @@ namespace Vertigo.Wheel.Presentation.Hud
 
         public void SetAvailable(bool available)
         {
+            bool becameAvailable = available && !_leaveButton.interactable;
             _leaveButton.interactable = available;
             _animGroup.DOKill();
             _animGroup.DOFade(available ? 1f : _unavailableAlpha, _fadeDuration).SetLink(gameObject);
+
+            if (becameAvailable)
+            {
+                Transform anim = _animGroup.transform;
+                anim.DOKill(true);
+                anim.DOPunchScale(Vector3.one * 0.15f, 0.45f, 5, 0.6f).SetLink(gameObject);
+            }
         }
 
         private void HandleClicked()

@@ -27,6 +27,7 @@ namespace Vertigo.Wheel.Tests
         private FakeSummaryPopupView _summary;
         private FakeLeaveButtonView _leave;
         private FakeWalletView _walletView;
+        private FakeRewardFlyView _rewardFly;
         private WheelGamePresenter _presenter;
 
         [SetUp]
@@ -51,6 +52,7 @@ namespace Vertigo.Wheel.Tests
             _summary = new FakeSummaryPopupView();
             _leave = new FakeLeaveButtonView();
             _walletView = new FakeWalletView();
+            _rewardFly = new FakeRewardFlyView();
 
             _presenter = new WheelGamePresenter(
                 _game,
@@ -59,7 +61,7 @@ namespace Vertigo.Wheel.Tests
                 new FakeWheelViewDataProvider(),
                 new RewardEntryMapper(new EmptyRewardCatalog()),
                 _texts,
-                new WheelGameViews(_wheel, _zoneBar, _rewards, _bombPopup, _summary, _leave, _walletView));
+                new WheelGameViews(_wheel, _zoneBar, _rewards, _bombPopup, _summary, _leave, _walletView, _rewardFly));
 
             _presenter.Initialize(StubWheelProvider.GoldId);
         }
@@ -113,6 +115,35 @@ namespace Vertigo.Wheel.Tests
             Assert.IsTrue(_wheel.SpinInteractable);
             Assert.AreEqual(2, _zoneBar.LastZone);
             Assert.AreEqual(StubWheelProvider.GoldAmount, _rewards.Amounts[StubWheelProvider.GoldId]);
+        }
+
+        [Test]
+        public void RewardGained_NewEntryStartsAtZero_AndCountsUpWhenIconsLand()
+        {
+            _rewardFly.LandImmediately = false;
+
+            _wheel.ClickSpin();
+
+            Assert.AreEqual(0, _rewards.Amounts[StubWheelProvider.GoldId]);
+            Assert.AreEqual(1, _rewardFly.Pending.Count);
+
+            _rewardFly.LandAll();
+
+            Assert.AreEqual(StubWheelProvider.GoldAmount, _rewards.Amounts[StubWheelProvider.GoldId]);
+        }
+
+        [Test]
+        public void RewardFly_LandingAfterTheRunEnded_IsIgnored()
+        {
+            _rewardFly.LandImmediately = false;
+            _wheel.ClickSpin();
+            HitBomb();
+            _bombPopup.ClickGiveUp();
+
+            _rewardFly.LandAll();
+
+            Assert.AreEqual(1, _rewardFly.CancelCount);
+            Assert.IsEmpty(_rewards.Amounts);
         }
 
         [Test]

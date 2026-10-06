@@ -19,6 +19,8 @@ namespace Vertigo.Wheel.Presentation.Popups
         [SerializeField] private TMP_Text _titleValue;
         [SerializeField] private TMP_Text _infoValue;
         [SerializeField] private RewardListView _rewardList;
+        [Min(0f)] [SerializeField] private float _rewardsAppearDelay = 0.25f;
+        [Min(0f)] [SerializeField] private float _rewardsAppearStagger = 0.08f;
 
         public event Action PlayAgainClicked;
 
@@ -36,8 +38,9 @@ namespace Vertigo.Wheel.Presentation.Popups
         {
             _titleValue.text = title;
             _infoValue.text = info;
-            _rewardList.SetEntries(rewards);
             ShowPopup();
+            _rewardList.SetEntries(rewards);
+            _rewardList.PlayAppear(_rewardsAppearDelay, _rewardsAppearStagger);
         }
 
         private void HandlePlayAgainClicked()

@@ -39,7 +39,42 @@ namespace Vertigo.Wheel.Tests.Fakes
             }
         }
 
+        public Vector3 GetSliceIconPosition(int sliceIndex) => Vector3.zero;
+
         public void ClickSpin() => SpinClicked?.Invoke();
+    }
+
+    internal sealed class FakeRewardFlyView : IRewardFlyView
+    {
+        public bool LandImmediately { get; set; } = true;
+        public List<Action> Pending { get; } = new List<Action>();
+
+        public void Fly(Sprite icon, Vector3 from, Vector3 to, Action onArrived)
+        {
+            if (LandImmediately)
+            {
+                onArrived();
+            }
+            else
+            {
+                Pending.Add(onArrived);
+            }
+        }
+
+        public int CancelCount { get; private set; }
+
+        // Keeps the callbacks so tests can prove late arrivals are ignored by the presenter.
+        public void CancelAll() => CancelCount++;
+
+        public void LandAll()
+        {
+            foreach (Action arrival in Pending.ToArray())
+            {
+                arrival();
+            }
+
+            Pending.Clear();
+        }
     }
 
     internal sealed class FakeZoneBarView : IZoneBarView
@@ -62,6 +97,13 @@ namespace Vertigo.Wheel.Tests.Fakes
         }
 
         public void Upsert(RewardEntryData entry, bool animate) => Amounts[entry.RewardId] = entry.Amount;
+
+        public bool TryGetIconPosition(string rewardId, out Vector3 worldPosition)
+        {
+            worldPosition = Vector3.zero;
+            return Amounts.ContainsKey(rewardId);
+        }
+
         public void Clear() => Amounts.Clear();
     }
 

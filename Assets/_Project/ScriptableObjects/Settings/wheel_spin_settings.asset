@@ -16,3 +16,8 @@ MonoBehaviour:
   _fullRotations: 5
   _ease: 12
   _landingJitter: 0.6
+  _tickAngle: 14
+  _tickDuration: 0.12
+  _resultHold: 0.45
+  _wheelChangePunch: 0.12
+  _glowTurnDuration: 12

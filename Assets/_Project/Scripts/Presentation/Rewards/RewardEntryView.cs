@@ -36,5 +36,15 @@ namespace Vertigo.Wheel.Presentation.Rewards
             _animRoot.DOKill(true);
             _animRoot.DOPunchScale(Vector3.one * 0.2f, 0.3f, 6, 0.6f).SetLink(gameObject);
         }
+
+        public void PlayAppear(float delay)
+        {
+            _animRoot.DOKill(true);
+            _animRoot.localScale = Vector3.zero;
+            _animRoot.DOScale(1f, 0.3f)
+                .SetDelay(delay)
+                .SetEase(Ease.OutBack)
+                .SetLink(gameObject);
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Vertigo.Wheel.Presentation.Rewards
 {
@@ -10,6 +11,8 @@ namespace Vertigo.Wheel.Presentation.Rewards
     {
         [SerializeField] private RectTransform _container;
         [SerializeField] private RewardEntryView _entryTemplate;
+        [Tooltip("Optional. Scrolled to the newest entry when one is added.")]
+        [SerializeField] private ScrollRect _scrollRect;
 
         private readonly List<RewardEntryView> _active = new List<RewardEntryView>();
         private readonly Stack<RewardEntryView> _pool = new Stack<RewardEntryView>();
@@ -55,6 +58,22 @@ namespace Vertigo.Wheel.Presentation.Rewards
             return null;
         }
 
+        public bool TryGetIconPosition(string rewardId, out Vector3 worldPosition)
+        {
+            RewardEntryView view = Find(rewardId);
+            worldPosition = view != null ? view.IconTransform.position : Vector3.zero;
+            return view != null;
+        }
+
+        /// <summary>Pops the active entries in one after another.</summary>
+        public void PlayAppear(float startDelay, float stagger)
+        {
+            for (int i = 0; i < _active.Count; i++)
+            {
+                _active[i].PlayAppear(startDelay + i * stagger);
+            }
+        }
+
         public void Clear()
         {
             foreach (RewardEntryView view in _active)
@@ -73,6 +92,14 @@ namespace Vertigo.Wheel.Presentation.Rewards
             view.gameObject.SetActive(true);
             view.Render(entry);
             _active.Add(view);
+
+            // Positions must be valid this frame so effects can target the new entry.
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_container);
+            if (_scrollRect != null)
+            {
+                _scrollRect.verticalNormalizedPosition = 0f;
+            }
+
             return view;
         }
     }

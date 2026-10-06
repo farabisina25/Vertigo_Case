@@ -40,6 +40,7 @@ namespace Vertigo.Wheel.Controllers.Game
         [SerializeField] private RunSummaryPopupView _summaryPopupView;
         [SerializeField] private LeaveButtonView _leaveButtonView;
         [SerializeField] private WalletView _walletView;
+        [SerializeField] private RewardFlyView _rewardFlyView;
 
         private WheelGamePresenter _presenter;
 
@@ -102,7 +103,8 @@ namespace Vertigo.Wheel.Controllers.Game
                 _bombPopupView,
                 _summaryPopupView,
                 _leaveButtonView,
-                _walletView);
+                _walletView,
+                _rewardFlyView);
         }
 
         private bool HasAllReferences()
@@ -119,6 +121,7 @@ namespace Vertigo.Wheel.Controllers.Game
             valid &= Require(_summaryPopupView, nameof(_summaryPopupView));
             valid &= Require(_leaveButtonView, nameof(_leaveButtonView));
             valid &= Require(_walletView, nameof(_walletView));
+            valid &= Require(_rewardFlyView, nameof(_rewardFlyView));
 
             if (_settings != null)
             {

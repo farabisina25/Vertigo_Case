@@ -16,6 +16,7 @@ namespace Vertigo.Wheel.Controllers.Game
         public IRunSummaryPopupView SummaryPopup { get; }
         public ILeaveButtonView LeaveButton { get; }
         public IWalletView Wallet { get; }
+        public IRewardFlyView RewardFly { get; }
 
         public WheelGameViews(
             IWheelView wheel,
@@ -24,7 +25,8 @@ namespace Vertigo.Wheel.Controllers.Game
             IBombPopupView bombPopup,
             IRunSummaryPopupView summaryPopup,
             ILeaveButtonView leaveButton,
-            IWalletView wallet)
+            IWalletView wallet,
+            IRewardFlyView rewardFly)
         {
             Wheel = wheel ?? throw new ArgumentNullException(nameof(wheel));
             ZoneBar = zoneBar ?? throw new ArgumentNullException(nameof(zoneBar));
@@ -33,6 +35,7 @@ namespace Vertigo.Wheel.Controllers.Game
             SummaryPopup = summaryPopup ?? throw new ArgumentNullException(nameof(summaryPopup));
             LeaveButton = leaveButton ?? throw new ArgumentNullException(nameof(leaveButton));
             Wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
+            RewardFly = rewardFly ?? throw new ArgumentNullException(nameof(rewardFly));
         }
     }
 }

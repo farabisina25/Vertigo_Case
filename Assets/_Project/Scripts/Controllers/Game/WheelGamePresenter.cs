@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using Vertigo.Wheel.Controllers.Mapping;
 using Vertigo.Wheel.Core.Economy;
 using Vertigo.Wheel.Core.Game;
@@ -26,6 +27,8 @@ namespace Vertigo.Wheel.Controllers.Game
 
         private GameState _lastState;
         private bool _initialized;
+        private int _landedSliceIndex;
+        private int _run;
 
         public WheelGamePresenter(
             IWheelGame game,
@@ -121,14 +124,14 @@ namespace Vertigo.Wheel.Controllers.Game
                     break;
                 case GameState.Ready when previous == GameState.Lost || previous == GameState.Collected:
                     _views.SummaryPopup.Hide();
-                    _views.CollectedRewards.Clear();
+                    ClearCollectedRewards();
                     break;
                 case GameState.Bombed:
                     _views.BombPopup.Show(_game.ReviveCost, _game.CanRevive);
                     break;
                 case GameState.Lost:
                     _views.BombPopup.Hide();
-                    _views.CollectedRewards.Clear();
+                    ClearCollectedRewards();
                     _views.SummaryPopup.Show(
                         _texts.LostTitle,
                         _texts.FormatLostInfo(_game.CurrentZone),
@@ -156,6 +159,7 @@ namespace Vertigo.Wheel.Controllers.Game
 
         private void HandleSpinStarted(SpinResult result)
         {
+            _landedSliceIndex = result.SliceIndex;
             _views.Wheel.Spin(result.SliceIndex, HandleSpinAnimationCompleted);
         }
 
@@ -170,10 +174,39 @@ namespace Vertigo.Wheel.Controllers.Game
             {
                 if (stack.RewardId == gained.RewardId)
                 {
-                    _views.CollectedRewards.Upsert(_rewardMapper.Map(stack), animate: true);
+                    FlyToCollectedRewards(_rewardMapper.Map(stack));
                     return;
                 }
             }
+        }
+
+        // A new entry starts at zero so its counter runs up when the flying icons land.
+        private void FlyToCollectedRewards(RewardEntryData total)
+        {
+            IRewardListView list = _views.CollectedRewards;
+            if (!list.TryGetIconPosition(total.RewardId, out _))
+            {
+                list.Upsert(new RewardEntryData(total.RewardId, total.Icon, 0), animate: false);
+            }
+
+            list.TryGetIconPosition(total.RewardId, out Vector3 target);
+            Vector3 origin = _views.Wheel.GetSliceIconPosition(_landedSliceIndex);
+
+            int run = _run;
+            _views.RewardFly.Fly(total.Icon, origin, target, () =>
+            {
+                if (run == _run)
+                {
+                    list.Upsert(total, animate: true);
+                }
+            });
+        }
+
+        private void ClearCollectedRewards()
+        {
+            _run++;
+            _views.RewardFly.CancelAll();
+            _views.CollectedRewards.Clear();
         }
 
         private void HandleBalanceChanged(int balance)

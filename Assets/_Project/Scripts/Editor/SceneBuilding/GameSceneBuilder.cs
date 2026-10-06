@@ -99,6 +99,7 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             WalletView wallet = BuildWallet(canvas, assets);
             RewardListView collectedRewards = BuildRewardsPanel(canvas, assets, out LeaveButtonView leaveButton);
             WheelView wheel = BuildWheel(canvas, assets);
+            RewardFlyView rewardFly = BuildRewardFly(canvas);
             BombPopupView bombPopup = BuildBombPopup(canvas, assets);
             RunSummaryPopupView summaryPopup = BuildSummaryPopup(canvas, assets);
 
@@ -115,7 +116,8 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
                     .Set("_bombPopupView", bombPopup)
                     .Set("_summaryPopupView", summaryPopup)
                     .Set("_leaveButtonView", leaveButton)
-                    .Set("_walletView", wallet);
+                    .Set("_walletView", wallet)
+                    .Set("_rewardFlyView", rewardFly);
             }
 
             RenderPreview(assets, wheel, zoneBar, wallet);
@@ -363,7 +365,9 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             var view = root.gameObject.AddComponent<RewardListView>();
             using (var writer = new SerializedFieldWriter(view))
             {
-                writer.Set("_container", content).Set("_entryTemplate", template);
+                writer.Set("_container", content)
+                    .Set("_entryTemplate", template)
+                    .Set("_scrollRect", scroll);
             }
 
             return view;
@@ -416,7 +420,7 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             UiFactory.Stretch(anim);
 
             Image glow = UiFactory.CreateImage("ui_image_wheel_glow", anim, assets.WheelGlow);
-            glow.color = new Color(1f, 0.85f, 0.45f, 0.35f);
+            glow.color = new Color(1f, 0.85f, 0.45f, 0.55f);
             UiFactory.PlaceCentered(glow.rectTransform, Vector2.zero, Vector2.one * WheelSize * 1.35f);
 
             RectTransform rotation = UiFactory.CreateRect("ui_wheel_rotation", anim);
@@ -445,7 +449,9 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             using (var writer = new SerializedFieldWriter(view))
             {
                 writer.Set("_spinButton", spinButton)
+                    .Set("_animRoot", anim)
                     .Set("_rotationRoot", rotation)
+                    .Set("_glow", glow.rectTransform)
                     .Set("_baseValue", wheelBase)
                     .Set("_indicatorValue", indicator)
                     .Set("_titleValue", title)
@@ -474,6 +480,25 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             using (var writer = new SerializedFieldWriter(view))
             {
                 writer.Set("_iconValue", icon).Set("_amountValue", amount);
+            }
+
+            return view;
+        }
+
+        // Full screen layer above the HUD and below the popups; icons are cloned from the inactive template.
+        private static RewardFlyView BuildRewardFly(Transform parent)
+        {
+            RectTransform layer = UiFactory.CreateRect("ui_reward_fly", parent);
+            UiFactory.Stretch(layer);
+
+            Image template = UiFactory.CreateImage("ui_image_reward_fly_template", layer, null);
+            UiFactory.PlaceCentered(template.rectTransform, Vector2.zero, new Vector2(90f, 90f));
+            template.gameObject.SetActive(false);
+
+            var view = layer.gameObject.AddComponent<RewardFlyView>();
+            using (var writer = new SerializedFieldWriter(view))
+            {
+                writer.Set("_iconTemplate", template);
             }
 
             return view;
@@ -525,7 +550,8 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
                     .Set("_canvasGroup", shell.Fade)
                     .Set("_giveUpButton", giveUp)
                     .Set("_reviveButton", revive)
-                    .Set("_reviveCostValue", cost);
+                    .Set("_reviveCostValue", cost)
+                    .Set("_card", card.rectTransform);
             }
 
             return view;

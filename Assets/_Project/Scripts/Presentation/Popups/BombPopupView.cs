@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ namespace Vertigo.Wheel.Presentation.Popups
         [SerializeField] private Button _giveUpButton;
         [SerializeField] private Button _reviveButton;
         [SerializeField] private TMP_Text _reviveCostValue;
+        [Tooltip("Optional. Shaken when the popup opens.")]
+        [SerializeField] private RectTransform _card;
 
         public event Action GiveUpClicked;
         public event Action ReviveClicked;
@@ -35,6 +38,20 @@ namespace Vertigo.Wheel.Presentation.Popups
             _reviveCostValue.text = AmountFormatter.Compact(reviveCost);
             _reviveButton.interactable = canRevive;
             ShowPopup();
+            ShakeCard();
+        }
+
+        private void ShakeCard()
+        {
+            if (_card == null)
+            {
+                return;
+            }
+
+            _card.DOKill(true);
+            _card.DOShakeRotation(0.5f, new Vector3(0f, 0f, 18f), 14, 90f)
+                .SetDelay(0.15f)
+                .SetLink(gameObject);
         }
 
         private void HandleGiveUpClicked()
