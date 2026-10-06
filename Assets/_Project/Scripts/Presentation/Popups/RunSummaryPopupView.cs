@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,8 @@ namespace Vertigo.Wheel.Presentation.Popups
         [SerializeField] private TMP_Text _titleValue;
         [SerializeField] private TMP_Text _infoValue;
         [SerializeField] private RewardListView _rewardList;
+        [Tooltip("Death card shown instead of the reward list when the run was lost.")]
+        [SerializeField] private RectTransform _lostCard;
         [Min(0f)] [SerializeField] private float _rewardsAppearDelay = 0.25f;
         [Min(0f)] [SerializeField] private float _rewardsAppearStagger = 0.08f;
 
@@ -34,13 +37,37 @@ namespace Vertigo.Wheel.Presentation.Popups
             _playAgainButton.onClick.RemoveListener(HandlePlayAgainClicked);
         }
 
-        public void Show(string title, string info, IReadOnlyList<RewardEntryData> rewards)
+        public void ShowCollected(string title, string info, IReadOnlyList<RewardEntryData> rewards)
         {
-            _titleValue.text = title;
-            _infoValue.text = info;
+            SetTexts(title, info);
+            _lostCard.gameObject.SetActive(false);
+            _rewardList.gameObject.SetActive(true);
+
             ShowPopup();
             _rewardList.SetEntries(rewards);
             _rewardList.PlayAppear(_rewardsAppearDelay, _rewardsAppearStagger);
+        }
+
+        public void ShowLost(string title, string info)
+        {
+            SetTexts(title, info);
+            _rewardList.Clear();
+            _rewardList.gameObject.SetActive(false);
+            _lostCard.gameObject.SetActive(true);
+
+            ShowPopup();
+            _lostCard.DOKill(true);
+            _lostCard.localScale = Vector3.zero;
+            _lostCard.DOScale(1f, 0.35f)
+                .SetDelay(_rewardsAppearDelay)
+                .SetEase(Ease.OutBack)
+                .SetLink(gameObject);
+        }
+
+        private void SetTexts(string title, string info)
+        {
+            _titleValue.text = title;
+            _infoValue.text = info;
         }
 
         private void HandlePlayAgainClicked()

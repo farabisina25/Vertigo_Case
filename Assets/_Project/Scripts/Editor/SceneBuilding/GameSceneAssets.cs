@@ -32,6 +32,7 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
         public Sprite ZoneCurrentFrame { get; private set; }
         public Sprite ZoneBarFrame { get; private set; }
         public Sprite DeathCard { get; private set; }
+        public Sprite CardBackground { get; private set; }
         public Sprite SpinButton { get; private set; }
         public Sprite WheelGlow { get; private set; }
         public Sprite WheelBase { get; private set; }
@@ -62,6 +63,7 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
                 ZoneCurrentFrame = Load<Sprite>(UiSprites + "ui_card_frame_4px_zone.png", missing),
                 ZoneBarFrame = Load<Sprite>(UiSprites + "ui_card_zone_map_frame.png", missing),
                 DeathCard = Load<Sprite>(UiSprites + "ui_card_icon_death.png", missing),
+                CardBackground = Load<Sprite>(UiSprites + "ui_card_panel_zone_white.png", missing),
                 SpinButton = Load<Sprite>(WheelSprites + "ui_spin_generic_button.png", missing),
                 WheelGlow = Load<Sprite>(WheelSprites + "star_glow_alpha.png", missing),
                 WheelBase = Load<Sprite>(WheelSprites + "ui_spin_bronze_base.png", missing),

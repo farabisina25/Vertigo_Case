@@ -132,13 +132,10 @@ namespace Vertigo.Wheel.Controllers.Game
                 case GameState.Lost:
                     _views.BombPopup.Hide();
                     ClearCollectedRewards();
-                    _views.SummaryPopup.Show(
-                        _texts.LostTitle,
-                        _texts.FormatLostInfo(_game.CurrentZone),
-                        Array.Empty<RewardEntryData>());
+                    _views.SummaryPopup.ShowLost(_texts.LostTitle, _texts.FormatLostInfo(_game.CurrentZone));
                     break;
                 case GameState.Collected:
-                    _views.SummaryPopup.Show(
+                    _views.SummaryPopup.ShowCollected(
                         _texts.CollectedTitle,
                         _texts.FormatCollectedInfo(_game.CurrentZone),
                         _rewardMapper.Map(_game.CollectedRewards));
@@ -174,14 +171,14 @@ namespace Vertigo.Wheel.Controllers.Game
             {
                 if (stack.RewardId == gained.RewardId)
                 {
-                    FlyToCollectedRewards(_rewardMapper.Map(stack));
+                    FlyToCollectedRewards(_rewardMapper.Map(stack), gained.Amount);
                     return;
                 }
             }
         }
 
         // A new entry starts at zero so its counter runs up when the flying icons land.
-        private void FlyToCollectedRewards(RewardEntryData total)
+        private void FlyToCollectedRewards(RewardEntryData total, int gainedAmount)
         {
             IRewardListView list = _views.CollectedRewards;
             if (!list.TryGetIconPosition(total.RewardId, out _))
@@ -193,7 +190,7 @@ namespace Vertigo.Wheel.Controllers.Game
             Vector3 origin = _views.Wheel.GetSliceIconPosition(_landedSliceIndex);
 
             int run = _run;
-            _views.RewardFly.Fly(total.Icon, origin, target, () =>
+            _views.RewardFly.Fly(total.Icon, gainedAmount, origin, target, () =>
             {
                 if (run == _run)
                 {

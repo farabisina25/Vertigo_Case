@@ -8,7 +8,10 @@ namespace Vertigo.Wheel.Presentation.Popups
     {
         event Action PlayAgainClicked;
 
-        void Show(string title, string info, IReadOnlyList<RewardEntryData> rewards);
+        void ShowCollected(string title, string info, IReadOnlyList<RewardEntryData> rewards);
+
+        /// <summary>Shown after giving up: the death card takes the place of the reward list.</summary>
+        void ShowLost(string title, string info);
 
         void Hide();
 

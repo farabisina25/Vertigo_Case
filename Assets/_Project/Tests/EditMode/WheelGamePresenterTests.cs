@@ -7,6 +7,7 @@ using Vertigo.Wheel.Core.Game;
 using Vertigo.Wheel.Core.Rewards;
 using Vertigo.Wheel.Core.Zones;
 using Vertigo.Wheel.Presentation.Common;
+using Vertigo.Wheel.Presentation.Rewards;
 using Vertigo.Wheel.Tests.Fakes;
 
 namespace Vertigo.Wheel.Tests
@@ -133,6 +134,24 @@ namespace Vertigo.Wheel.Tests
         }
 
         [Test]
+        public void RewardFly_UsesTheAmountGainedThisSpin_NotTheTotal()
+        {
+            SpinTo(3);
+
+            Assert.AreEqual(StubWheelProvider.GoldAmount, _rewardFly.LastAmount);
+            Assert.AreEqual(StubWheelProvider.GoldAmount * 2, _rewards.Amounts[StubWheelProvider.GoldId]);
+        }
+
+        [TestCase(1, 1)]
+        [TestCase(3, 1)]
+        [TestCase(4, 4)]
+        [TestCase(250, 4)]
+        public void RewardFly_SmallAmountsFlyAsOneIcon(int amount, int expectedIcons)
+        {
+            Assert.AreEqual(expectedIcons, RewardFlyView.GetIconCount(amount, 4));
+        }
+
+        [Test]
         public void RewardFly_LandingAfterTheRunEnded_IsIgnored()
         {
             _rewardFly.LandImmediately = false;
@@ -187,6 +206,7 @@ namespace Vertigo.Wheel.Tests
 
             Assert.IsTrue(_summary.Visible);
             Assert.AreEqual(_texts.LostTitle, _summary.Title);
+            Assert.IsTrue(_summary.ShowsLostCard);
             Assert.IsEmpty(_rewards.Amounts);
         }
 
@@ -199,6 +219,7 @@ namespace Vertigo.Wheel.Tests
 
             Assert.IsTrue(_summary.Visible);
             Assert.AreEqual(_texts.CollectedTitle, _summary.Title);
+            Assert.IsFalse(_summary.ShowsLostCard);
             Assert.AreEqual(1, _summary.Rewards.Count);
             Assert.AreEqual(StubWheelProvider.GoldAmount * 4, _walletView.Balance);
         }

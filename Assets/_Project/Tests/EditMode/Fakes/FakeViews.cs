@@ -49,8 +49,11 @@ namespace Vertigo.Wheel.Tests.Fakes
         public bool LandImmediately { get; set; } = true;
         public List<Action> Pending { get; } = new List<Action>();
 
-        public void Fly(Sprite icon, Vector3 from, Vector3 to, Action onArrived)
+        public int LastAmount { get; private set; }
+
+        public void Fly(Sprite icon, int amount, Vector3 from, Vector3 to, Action onArrived)
         {
+            LastAmount = amount;
             if (LandImmediately)
             {
                 onArrived();
@@ -137,11 +140,22 @@ namespace Vertigo.Wheel.Tests.Fakes
         public string Title { get; private set; }
         public IReadOnlyList<RewardEntryData> Rewards { get; private set; }
 
-        public void Show(string title, string info, IReadOnlyList<RewardEntryData> rewards)
+        public bool ShowsLostCard { get; private set; }
+
+        public void ShowCollected(string title, string info, IReadOnlyList<RewardEntryData> rewards)
         {
             Visible = true;
             Title = title;
             Rewards = rewards;
+            ShowsLostCard = false;
+        }
+
+        public void ShowLost(string title, string info)
+        {
+            Visible = true;
+            Title = title;
+            Rewards = Array.Empty<RewardEntryData>();
+            ShowsLostCard = true;
         }
 
         public void Hide() => Visible = false;

@@ -35,6 +35,9 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
         private static readonly Color BlockerColor = new Color(0f, 0f, 0f, 0.86f);
         private static readonly Color Gold = new Color32(255, 206, 84, 255);
         private static readonly Color Danger = new Color32(255, 82, 70, 255);
+        private static readonly Color CardRed = new Color32(196, 38, 34, 255);
+        private static readonly Color CardFrame = new Color32(255, 150, 120, 255);
+        private static readonly Vector2 DeathCardSize = new Vector2(220f, 300f);
 
         private const float ScreenMargin = 40f;
         private const float ZoneBarTop = 20f;
@@ -518,13 +521,13 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
         {
             PopupShell shell = BuildPopupShell("bomb", parent, new Vector2(820f, 720f));
 
-            Image card = UiFactory.CreateImage("ui_image_popup_bomb_card", shell.Anim, assets.DeathCard);
-            UiFactory.PlaceCentered(card.rectTransform, new Vector2(0f, 170f), new Vector2(300f, 300f));
+            RectTransform card = BuildDeathCard("popup_bomb_card", shell.Anim, assets);
+            UiFactory.PlaceCentered(card, new Vector2(0f, 155f), DeathCardSize);
 
             TextMeshProUGUI title = UiFactory.CreateText("ui_text_popup_bomb_title", shell.Anim, "BOMB!", 72f);
             title.color = Danger;
             title.fontSharedMaterial = assets.OutlinedFont;
-            UiFactory.PlaceCentered(title.rectTransform, new Vector2(0f, -20f), new Vector2(700f, 80f));
+            UiFactory.PlaceCentered(title.rectTransform, new Vector2(0f, -45f), new Vector2(700f, 80f));
 
             TextMeshProUGUI info = UiFactory.CreateText(
                 "ui_text_popup_bomb_info",
@@ -532,14 +535,14 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
                 "You hit the bomb and lost every reward collected so far.",
                 30f);
             info.enableWordWrapping = true;
-            UiFactory.PlaceCentered(info.rectTransform, new Vector2(0f, -100f), new Vector2(760f, 80f));
+            UiFactory.PlaceCentered(info.rectTransform, new Vector2(0f, -120f), new Vector2(760f, 80f));
 
             Button giveUp = UiFactory.CreateButton("ui_button_give_up", shell.Anim, assets.ButtonGrey);
-            UiFactory.PlaceCentered((RectTransform)giveUp.transform, new Vector2(-170f, -250f), new Vector2(300f, 90f));
+            UiFactory.PlaceCentered((RectTransform)giveUp.transform, new Vector2(-170f, -265f), new Vector2(300f, 90f));
             AddButtonLabel(giveUp, "ui_text_give_up", "GIVE UP", assets);
 
             Button revive = UiFactory.CreateButton("ui_button_revive", shell.Anim, assets.ButtonOrange);
-            UiFactory.PlaceCentered((RectTransform)revive.transform, new Vector2(170f, -250f), new Vector2(300f, 90f));
+            UiFactory.PlaceCentered((RectTransform)revive.transform, new Vector2(170f, -265f), new Vector2(300f, 90f));
 
             TextMeshProUGUI reviveLabel = AddButtonLabel(revive, "ui_text_revive", "REVIVE", assets);
             reviveLabel.alignment = TextAlignmentOptions.Left;
@@ -561,7 +564,7 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
                     .Set("_giveUpButton", giveUp)
                     .Set("_reviveButton", revive)
                     .Set("_reviveCostValue", cost)
-                    .Set("_card", card.rectTransform);
+                    .Set("_card", card);
             }
 
             return view;
@@ -599,6 +602,10 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
             rewardsRect.offsetMin = new Vector2(40f, 160f);
             rewardsRect.offsetMax = new Vector2(-40f, -170f);
 
+            RectTransform lostCard = BuildDeathCard("popup_summary_lost_card", shell.Anim, assets);
+            UiFactory.PlaceCentered(lostCard, new Vector2(0f, -5f), DeathCardSize);
+            lostCard.gameObject.SetActive(false);
+
             Button playAgain = UiFactory.CreateButton("ui_button_play_again", shell.Anim, assets.ButtonOrange);
             UiFactory.Place((RectTransform)playAgain.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(340f, 96f));
             AddButtonLabel(playAgain, "ui_text_play_again", "PLAY AGAIN", assets);
@@ -611,10 +618,34 @@ namespace Vertigo.Wheel.Editor.SceneBuilding
                     .Set("_playAgainButton", playAgain)
                     .Set("_titleValue", title)
                     .Set("_infoValue", info)
-                    .Set("_rewardList", rewards);
+                    .Set("_rewardList", rewards)
+                    .Set("_lostCard", lostCard);
             }
 
             return view;
+        }
+
+        // Red card with the skull in front, matching the bomb screen of the reference art.
+        private static RectTransform BuildDeathCard(string id, Transform parent, GameSceneAssets assets)
+        {
+            RectTransform card = UiFactory.CreateRect($"ui_{id}", parent);
+
+            Image background = UiFactory.CreateImage($"ui_image_{id}_background", card, assets.CardBackground);
+            background.color = CardRed;
+            UiFactory.Stretch(background.rectTransform);
+
+            Image shade = UiFactory.CreateImage($"ui_image_{id}_shade", card, assets.PanelGradient);
+            shade.color = new Color(0.45f, 0.05f, 0.05f, 0.55f);
+            UiFactory.Stretch(shade.rectTransform, 10f);
+
+            Image frame = UiFactory.CreateImage($"ui_image_{id}_frame", card, assets.PanelFrame);
+            frame.color = CardFrame;
+            UiFactory.Stretch(frame.rectTransform);
+
+            Image skull = UiFactory.CreateImage($"ui_image_{id}_icon", card, assets.DeathCard);
+            UiFactory.Stretch(skull.rectTransform, 12f);
+
+            return card;
         }
 
         // ui_popup_x (view) > ui_popup_x_fade (CanvasGroup) > blocker + ui_popup_x_anim (scaled panel).

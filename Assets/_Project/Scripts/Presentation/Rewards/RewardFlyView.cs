@@ -13,6 +13,7 @@ namespace Vertigo.Wheel.Presentation.Rewards
     public sealed class RewardFlyView : MonoBehaviour, IRewardFlyView
     {
         [SerializeField] private Image _iconTemplate;
+        [Tooltip("Copies flown for amounts of at least this many; smaller amounts fly as one icon.")]
         [Min(1)] [SerializeField] private int _iconCount = 4;
         [Min(0f)] [SerializeField] private float _stagger = 0.06f;
         [Min(0f)] [SerializeField] private float _burstRadius = 70f;
@@ -23,12 +24,13 @@ namespace Vertigo.Wheel.Presentation.Rewards
         private readonly Stack<Image> _pool = new Stack<Image>();
         private readonly List<Sequence> _running = new List<Sequence>();
 
-        public void Fly(Sprite icon, Vector3 from, Vector3 to, Action onArrived)
+        public void Fly(Sprite icon, int amount, Vector3 from, Vector3 to, Action onArrived)
         {
-            float burstRadius = _burstRadius * transform.lossyScale.x;
-            for (int i = 0; i < _iconCount; i++)
+            int count = GetIconCount(amount, _iconCount);
+            float burstRadius = count > 1 ? _burstRadius * transform.lossyScale.x : 0f;
+            for (int i = 0; i < count; i++)
             {
-                bool isLast = i == _iconCount - 1;
+                bool isLast = i == count - 1;
                 Image image = Rent(icon);
                 RectTransform rect = image.rectTransform;
                 rect.position = from;
@@ -54,6 +56,11 @@ namespace Vertigo.Wheel.Presentation.Rewards
                 });
                 _running.Add(sequence);
             }
+        }
+
+        public static int GetIconCount(int amount, int burstCount)
+        {
+            return amount >= burstCount ? burstCount : 1;
         }
 
         public void CancelAll()
