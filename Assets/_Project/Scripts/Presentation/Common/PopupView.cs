@@ -4,7 +4,8 @@ using UnityEngine;
 namespace Vertigo.Wheel.Presentation.Common
 {
     /// <summary>
-    /// Fades and scales a separate animation child so the root transform is never animated.
+    /// Fades a full screen child and scales the panel inside it, so the root transform is never animated
+    /// and the dimmed background is not scaled with the panel.
     /// </summary>
     public abstract class PopupView : MonoBehaviour
     {
@@ -73,7 +74,7 @@ namespace Vertigo.Wheel.Presentation.Common
         {
             if (_animRoot != null && _canvasGroup == null)
             {
-                _canvasGroup = _animRoot.GetComponent<CanvasGroup>();
+                _canvasGroup = _animRoot.GetComponentInParent<CanvasGroup>();
             }
         }
     }

@@ -7,7 +7,9 @@
         "Vertigo.Wheel.Core",
         "Vertigo.Wheel.Data",
         "Vertigo.Wheel.Presentation",
-        "Vertigo.Wheel.Controllers"
+        "Vertigo.Wheel.Controllers",
+        "Vertigo.Wheel.Editor",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [
         "Editor"

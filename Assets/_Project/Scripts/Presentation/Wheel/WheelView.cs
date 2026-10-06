@@ -14,8 +14,8 @@ namespace Vertigo.Wheel.Presentation.Wheel
 
         [SerializeField] private Button _spinButton;
         [SerializeField] private RectTransform _rotationRoot;
-        [SerializeField] private Image _baseImage;
-        [SerializeField] private Image _indicatorImage;
+        [SerializeField] private Image _baseValue;
+        [SerializeField] private Image _indicatorValue;
         [SerializeField] private TMP_Text _titleValue;
         [SerializeField] private TMP_Text _subtitleValue;
         [SerializeField] private WheelSliceView[] _slices = Array.Empty<WheelSliceView>();
@@ -39,8 +39,8 @@ namespace Vertigo.Wheel.Presentation.Wheel
 
         public void Render(WheelViewData data)
         {
-            _baseImage.sprite = data.BaseSprite;
-            _indicatorImage.sprite = data.IndicatorSprite;
+            _baseValue.sprite = data.BaseSprite;
+            _indicatorValue.sprite = data.IndicatorSprite;
             _titleValue.text = data.Title;
             _subtitleValue.text = data.Subtitle;
 

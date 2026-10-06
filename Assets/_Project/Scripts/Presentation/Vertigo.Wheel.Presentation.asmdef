@@ -5,7 +5,8 @@
         "Vertigo.Wheel.Core",
         "Vertigo.Wheel.Data",
         "DOTween.Modules",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

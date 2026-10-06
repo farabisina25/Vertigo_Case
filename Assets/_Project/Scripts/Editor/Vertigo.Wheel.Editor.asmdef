@@ -6,7 +6,8 @@
         "Vertigo.Wheel.Data",
         "Vertigo.Wheel.Presentation",
         "Vertigo.Wheel.Controllers",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [
         "Editor"
